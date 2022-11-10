@@ -11,14 +11,35 @@ interface ApiResponse {
   imageUrl: string;
 }
 
-export default async function Home() {
-  const data: [] = await fetch('https://thronesapi.com/api/v2/Characters', {cache:'force-cache'}).then((res) => res.json());
+interface Time {
+  unixtime: number;
+}
 
-  const date = await fetch('https://thronesapi.com/api/v2/Characters', {cache:'no-cache'}).then((res) => new Date().toLocaleTimeString());
+async function getImages() {
+  const res = await fetch('https://thronesapi.com/api/v2/Characters', {cache:'force-cache'})
+
+  const data: [] = await res.json();
+
+  return data
+} 
+  
+
+async function getCurrentTime() {
+  const res = await fetch('http://worldtimeapi.org/api/timezone/America/Chicago', {cache: 'force-cache'})
+
+  const time: Promise<Time> = await res.json();
+
+  return time
+}
+
+export default async function Home() {
+  const date = await getCurrentTime();
+  const data = await getImages();
+
 
   return (
    <div className='flex flex-wrap bg-black'>
-    <div className='text-white block'>{date}</div>
+    <div className='text-white block'>{new Date(date.unixtime * 1000).toString()}</div>
     {data.map((person: ApiResponse) => <Image placeholder='blur' blurDataURL={person.imageUrl} className='object-contain' alt={person.firstName} key={person.id} src={person.imageUrl} width={500} height={500}/>)}
    
    </div>
