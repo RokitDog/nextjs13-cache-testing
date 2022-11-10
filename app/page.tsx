@@ -14,7 +14,7 @@ interface ApiResponse {
 export default async function Home() {
   const data: [] = await fetch('https://thronesapi.com/api/v2/Characters', {cache:'force-cache'}).then((res) => res.json());
 
-  const date = await fetch('https://thronesapi.com/api/v2/Characters', {cache:'force-cache'}).then((res) => new Date().toLocaleTimeString());
+  const date = await fetch('https://thronesapi.com/api/v2/Characters', {cache:'no-cache'}).then((res) => new Date().toLocaleTimeString());
 
   return (
    <div className='flex flex-wrap bg-black'>
