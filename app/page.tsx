@@ -25,7 +25,7 @@ async function getImages() {
   
 
 async function getCurrentTime() {
-  const res = await fetch('http://worldtimeapi.org/api/timezone/America/Chicago', {next: {revalidate: 1}})
+  const res = await fetch('http://worldtimeapi.org/api/timezone/America/Chicago', {next: {revalidate: 60}})
 
   const time: Promise<Time> = await res.json();
 
