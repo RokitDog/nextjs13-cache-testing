@@ -1,6 +1,6 @@
 
 async function getRandomQuote() {
-    const res = await fetch('https://api.quotable.io/random', {cache: 'force-cache'})
+    const res = await fetch('https://api.quotable.io/random', {cache: 'no-cache'})
 
     const data: Promise<DataApi> = await res.json();
     return data
