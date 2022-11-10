@@ -1,8 +1,26 @@
-import React from 'react'
 
-function page() {
+async function getRandomQuote() {
+    const res = await fetch('https://api.quotable.io/random', {cache: 'force-cache'})
+
+    const data: Promise<DataApi> = await res.json();
+    return data
+}
+interface DataApi {
+    _id: string;
+    content: string;
+    author: string;
+    tags: string[];
+    authorSlug: string;
+    length: number;
+    dateAdded: string;
+    dateModified: string;
+}
+
+async function page() {
+
+    const data = await getRandomQuote()
   return (
-    <div>page</div>
+    <div className="text-black">Data: {data.content}</div>
   )
 }
 
