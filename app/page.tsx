@@ -16,7 +16,7 @@ interface Time {
 }
 
 async function getImages() {
-  const res = await fetch('https://thronesapi.com/api/v2/Characters', {cache:'no-cache'})
+  const res = await fetch('https://thronesapi.com/api/v2/Characters', {cache:'force-cache'})
 
   const data: [] = await res.json();
 
@@ -25,7 +25,7 @@ async function getImages() {
   
 
 async function getCurrentTime() {
-  const res = await fetch('http://worldtimeapi.org/api/timezone/America/Chicago', {cache: 'no-cache'})
+  const res = await fetch('http://worldtimeapi.org/api/timezone/America/Chicago', {next: {revalidate: 1}})
 
   const time: Promise<Time> = await res.json();
 
